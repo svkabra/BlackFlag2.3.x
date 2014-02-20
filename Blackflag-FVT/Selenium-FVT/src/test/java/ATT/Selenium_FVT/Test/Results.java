@@ -34,8 +34,8 @@ public class Results {
 	@Before 
 	public void openExcel(){
 		try {
-			inputFile = new FileInputStream(new File("src/test/resources/ATT/Selenium_FVT/PageTest/Input.xls"));
-			out = new FileOutputStream(new File("src/test/resources/ATT/Selenium_FVT/PageTest/Result.xls"));
+			inputFile = new FileInputStream(new File(" BlackFlag2.3.x / Blackflag-FVT / Selenium-FVT / src / test / resources / ATT / Selenium_FVT / PageTest / Input.xls "));
+			out = new FileOutputStream(new File("BlackFlag2.3.x / Blackflag-FVT / Selenium-FVT / src / test / resources / ATT / Selenium_FVT / PageTest / Result.xls"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
