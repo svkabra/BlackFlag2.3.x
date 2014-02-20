@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
 import ATT.Selenium_FVT.Utilities.Component.Constants;
+import ATT.Selenium_FVT.Utilities.Component.PageTitleConstant;
 
 public class CommunityProfilePage extends WebPage {
 
@@ -19,7 +20,7 @@ public class CommunityProfilePage extends WebPage {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	// Page Object "Company Name" header
 	@FindBy(how = How.ID, using = "text_company")
 	private WebElement companyName;
@@ -57,23 +58,23 @@ public class CommunityProfilePage extends WebPage {
 	private WebElement updateInformation;
 
 	// Page Object "View My Profile" link
-	 @FindBy(how=How.LINK_TEXT, using="View my Profile")
+	@FindBy(how = How.LINK_TEXT, using = "View my Profile")
 	private WebElement viewMyProfile;
 
 	// Page Object "My Settings" link
-	 @FindBy(how=How.CSS, using="div.content > a")
+	@FindBy(how = How.CSS, using = "div.content > a")
 	private WebElement mySettings;
 
 	// Page Object "Upgrade To Premium Access" Button
-	 @FindBy(how=How.CSS, using="div.floatRight.manageAccountItemCall > a.button > span")
+	@FindBy(how = How.CSS, using = "div.floatRight.manageAccountItemCall > a.button > span")
 	private WebElement upgradeToPremiumAccessButtonCommunityProfilePage;
 
-	 //Page Object "Company Name Validation Msg"
-	 @FindBy(how=How.CSS, using="label[class=field_error][for=text_company][generated=true]")
-	 public WebElement CompanyNameValidationMsg;
+	// Page Object "Company Name Validation Msg"
+	@FindBy(how = How.CSS, using = "label[class=field_error][for=text_company][generated=true]")
+	public WebElement CompanyNameValidationMsg;
 
-	 @FindBy(how=How.CSS, using="label[class=field_error][for=text_jobtitle][generated=true]")
-	 public WebElement JobTitleValidationMsg;
+	@FindBy(how = How.CSS, using = "label[class=field_error][for=text_jobtitle][generated=true]")
+	public WebElement JobTitleValidationMsg;
 
 	@Override
 	public void openURL() {
@@ -82,7 +83,7 @@ public class CommunityProfilePage extends WebPage {
 		PageFactory.initElements(driver, this);
 
 	}
-	
+
 	/* Method to return ApimLogin Page elements */
 	public APIMLoginPage apimLoginPage() {
 		waitForPageToLoad();
@@ -97,19 +98,18 @@ public class CommunityProfilePage extends WebPage {
 		return PageFactory.initElements(driver, ManageMyAccount.class);
 	}
 
-	/* Method to check if alert pop up occurs when clicked on My Settings link*/
+	/* Method to check if alert pop up occurs when clicked on My Settings link */
 	public boolean isAlertPresent(WebDriver driver) {
 		try {
 			driver.switchTo().alert();
 			return true;
-		} 
-		catch (NoAlertPresentException Ex) {
+		} catch (NoAlertPresentException Ex) {
 			return false;
 		}
 	}
 
 	/* Method to click on MySettings Link */
-	public void clickMySettingsLink() {
+	public CommunityProfilePage clickMySettingsLink() {
 
 		mySettings.click();
 		waitForPageToLoad();
@@ -123,7 +123,7 @@ public class CommunityProfilePage extends WebPage {
 			javascriptAlert.accept();
 			waitForPageToLoad();
 		}
-
+		return this;
 	}
 
 	/* Method to return Elements of Manage My Account Page */
@@ -132,29 +132,38 @@ public class CommunityProfilePage extends WebPage {
 		return PageFactory.initElements(driver, ManageMyAccount.class);
 	}
 
-
 	/* Method to validate "Upgrade to Premium Access" Button is displayed */
 	public void upgradeToPremiumAccessButtonValidation() {
 
 		validateWebElementDisplayed(upgradeToPremiumAccessButtonCommunityProfilePage);
 	}
-	
-	/************* Validation Methods**********/
-	
-	/* Method to validate company name field */
-	public void validateCompanyName() {
 
-		companyName
-				.sendKeys(Constants.INVALID_COMPANY_NAME);
+	public CommunityProfilePage populateCompanyName() {
+
+		companyName.sendKeys(Constants.INVALID_COMPANY_NAME);
 		updateInformation.click();
-		implicitWait(5);
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
 		waitForPageToLoad();
+		return this;
+	}
 
-		String messageCaptured =CompanyNameValidationMsg.getText();
-		
+	public CommunityProfilePage populateJobTitle() {
+		jobTitle.sendKeys(Constants.INVALID_JOB_TITLE);
+		updateInformation.click();
+		waitForPageToLoad();
+		return this;
+	}
+
+	/************* Validation Methods **********/
+
+	/* Method to validate company name field */
+	public boolean validateCompanyName() {
+
+		String messageCaptured = CompanyNameValidationMsg.getText();
+
 		String messageActual = "Company can not exceed 30 characters in length.";
-
-		if (messageCaptured.equalsIgnoreCase(messageActual)) {
+		boolean result = messageCaptured.equalsIgnoreCase(messageActual);
+		if (result) {
 
 			storeVerificationResults(true, "Error Message is displayed");
 
@@ -162,21 +171,17 @@ public class CommunityProfilePage extends WebPage {
 
 			storeVerificationResults(false, "Error Message is not displayed");
 		}
-
+		return result;
 	}
 
 	/* Method to validate Job Title field */
-	public void validateJobTitle() {
-
-		jobTitle.sendKeys("");
-		updateInformation.click();
-		waitForPageToLoad();
+	public boolean validateJobTitle() {
 
 		String messageCaptured = JobTitleValidationMsg.getText();
-		
-		String messageActual = "Job Title can not exceed 30 characters in length.";
 
-		if (messageCaptured.equalsIgnoreCase(messageActual)) {
+		String messageActual = "Job Title can not exceed 30 characters in length.";
+		boolean result = messageCaptured.equalsIgnoreCase(messageActual);
+		if (result) {
 
 			storeVerificationResults(true, "Error Message is displayed");
 
@@ -184,14 +189,13 @@ public class CommunityProfilePage extends WebPage {
 
 			storeVerificationResults(false, "Error Message is not displayed");
 		}
-
+		return result;
 	}
-
 
 	/* Method to validate My Settings Page */
 	public boolean validateMySettingsPage() {
-		String titleExpected = "My Settings - Forums Blogs Events News | AT&T Developer Program";
-		boolean result=validatePageTitle(titleExpected);
+		String titleExpected = PageTitleConstant.MYSETTINGSPAGE;
+		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
 			storeVerificationResults(true, "Page Title displayed");

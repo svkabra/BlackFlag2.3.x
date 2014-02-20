@@ -1,28 +1,24 @@
-package ATT.Selenium_FVT.Playground;
+package ATT.Selenium_FVT.OrgOnBoarding;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
+import org.junit.After;
 import ATT.Selenium_FVT.Pages.APIMLoginPage;
+import ATT.Selenium_FVT.Pages.AddUsersPage;
 import ATT.Selenium_FVT.Pages.ManageMyAccount;
 import ATT.Selenium_FVT.Test.TestUtil;
 import ATT.Selenium_FVT.Utilities.Component.Constants;
-import cucumber.annotation.After;
 
-public class TC_AccountSettingsLinkValidation extends TestUtil{
+
+
+public class TC_AddUserbyInviteFailure extends TestUtil{
 
 	@Test
-	public void accountSettingsLinkValidation_test() {
-		
-		
+	public void addUserbyInvite_test() {
 		
 		APIMLoginPage apimLoginPage = new APIMLoginPage(getNewDriver(Constants.BROWSER));
 		
@@ -30,27 +26,33 @@ public class TC_AccountSettingsLinkValidation extends TestUtil{
 		apimLoginPage.openURL();
 		
 		//method to log into Dev Portal as an OPA
-		apimLoginPage.playGroundLogIn();
-		
-		//Method to validate Login
-		apimLoginPage.validateLogin();
+		apimLoginPage.opaLogin();
 		
 		//method to click on Manage My Account Link
 		ManageMyAccount manageMyAcct = apimLoginPage.clickManageMyAcctLink();
 		
-			
-		//method to click on Account Settings link
-		manageMyAcct.clickAccountSettings();
+		//method to validate user lands on Manage My Account page
+		apimLoginPage.validateManageMyAccountPage();
 		
-		//method to validate user lands on Account Setting page
-		manageMyAcct.validateAccountSettingsPage();
+		//method to click on Add Users link
+		AddUsersPage addUsersPage = manageMyAcct.clickAddUsers();
 		
-					
+		// method to enter email ID
+		addUsersPage.enterEmailId();
+		
+		//method to send an invite
+		addUsersPage.sendInvite();
+		
+		//method to click yes on the pop up
+		addUsersPage.clickYes();
+		
+		//validate error message sent when an invalid email is sent for invite
+		addUsersPage.validateEmailIdErrorMesaage();
+		
 		//method to publish test result
 		apimLoginPage.publishTestResult();
-		manageMyAcct.publishTestResult();
+		addUsersPage.publishTestResult();
 	}
-	
 	
 	@After
 
@@ -64,7 +66,7 @@ public class TC_AccountSettingsLinkValidation extends TestUtil{
 
 	try {
 
-	FileUtils.copyFile(scrFile, new File("c:\\tmp\\TC_AccountSettingsLinkValidation.png"));
+	FileUtils.copyFile(scrFile, new File("c:\\tmp\\TC_AddUserbyInviteFailure.png"));
 
 	} catch (IOException e) {
 

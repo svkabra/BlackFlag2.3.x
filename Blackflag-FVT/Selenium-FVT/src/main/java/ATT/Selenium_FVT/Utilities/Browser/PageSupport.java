@@ -273,9 +273,9 @@ public class PageSupport {
                storeVerificationResults(false, "Element is present");
         
    }
-protected void validateWebElementEnabled(WebElement element){
-	   
-	   if( element.isEnabled()){
+protected boolean validateWebElementEnabled(WebElement element){
+	   boolean result = element.isEnabled();
+	   if( result){
 	   
 	    storeVerificationResults(true, "Element is enabled");
 	   
@@ -283,11 +283,13 @@ protected void validateWebElementEnabled(WebElement element){
 	          
 	          storeVerificationResults(false, "Element is not enabled");
 	   }
+	   return result;
 	}
  
- protected void validateWebElementPrepopulated(WebElement element){
+ protected boolean validateWebElementPrepopulated(WebElement element){
 	   
-	   if( element.getAttribute("value") != null){
+	 boolean result =element.getAttribute("value") != null;
+	   if( result){
 	   
 	    storeVerificationResults(true, "Element is prepopulated");
 	   
@@ -295,11 +297,13 @@ protected void validateWebElementEnabled(WebElement element){
 	          
 	          storeVerificationResults(false, "Element is not prepopulated");
 	   }
+	   return result;
 	}
  
- protected void validateWebElementDisabled(WebElement element){
+ protected boolean validateWebElementDisabled(WebElement element){
 	   
-	   if( !element.isEnabled()){
+	 boolean result =!element.isEnabled();
+	   if( result){
 	   
 	    storeVerificationResults(true, "Element is not editable");
 	   
@@ -307,6 +311,7 @@ protected void validateWebElementEnabled(WebElement element){
 	          
 	          storeVerificationResults(false, "Element is editable");
 	   }
+	   return result;
 	}
 
   

@@ -9,8 +9,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import com.gargoylesoftware.htmlunit.PageCreator;
+
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
 import ATT.Selenium_FVT.Utilities.Component.Constants;
+import ATT.Selenium_FVT.Utilities.Component.PageTitleConstant;
 
 public class APIMLoginPage extends WebPage {
 
@@ -107,26 +110,28 @@ public class APIMLoginPage extends WebPage {
 	}
 
 	/* Method to Click hackathon and events from home page */
-	public void clickHackathonEventsButton() {
+	public APIMLoginPage clickHackathonEventsButton() {
 		checkOutHackathonEvents.click();
 		waitForPageToLoad();
+		return this;
 	}
 
 	/* Method to enter password in the popup */
-	public void enterPassword(String pwd) {
+	public APIMLoginPage enterPassword(String pwd) {
 		passwordPopup.sendKeys(pwd);
-
+		return this;	
 	}
 
 	/* Method to enter username in the popup */
-	public void enterUserName(String userName) {
+	public APIMLoginPage enterUserName(String userName) {
 		signinLink.click();
 		implicitWait(Constants.PAGE_WAIT_AJAX);
 		userNamePopup.sendKeys(userName);
+		return this;
 	}
 
 	/* Playground Login Method for f3 Environment */
-	public void playGroundLogIn() {
+	public APIMLoginPage playGroundLogIn() {
 
         signIn.click();
         waitForPageToLoad();        
@@ -142,11 +147,11 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.PG_PASSWORD);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 	/* Playground Login Method for f3 Environment */
-	public void playGroundLogInCancelDelete() {
+	public APIMLoginPage playGroundLogInCancelDelete() {
 
 		signIn.click();
 		waitForPageToLoad();
@@ -158,11 +163,11 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.PG_PASSWORD__CANCELDELELTE);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 	/* Developer Login Method for f3 Environment */
-	public void developerLogin() {
+	public APIMLoginPage developerLogin() {
 
 		signIn.click();
 		waitForPageToLoad();
@@ -174,11 +179,11 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.DEV_PASSWORD);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 	/* OPA Login Method for f3 Environment */
-	public void opaLogin() {
+	public APIMLoginPage opaLogin() {
 
 		signIn.click();
 		waitForPageToLoad();
@@ -190,14 +195,14 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.OPA_PASSWORD);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 	/*
 	 * Developer Login Method for f3 Environment for verifying account with
 	 * applications- Hemant
 	 */
-	public void devLogInADVWITHAPP() {
+	public APIMLoginPage devLogInADVWITHAPP() {
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
@@ -208,13 +213,14 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.DEV_PASSWORD_ADV);
 		waitForPageToLoad();
 		popupSignInButton.click();
+		return this;
 	}
 
 	/*
 	 * OPA Login Method for f3 Environment for verifying account with
 	 * applications - Hemant
 	 */
-	public void opaLogInADVWITAPP() {
+	public APIMLoginPage opaLogInADVWITAPP() {
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
@@ -225,12 +231,12 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.OPA_PASSWORD_ADV);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 
 	/* Developer Login Method for developer account without application- Hemant */
-	public void devLogInADVWOAPP() {
+	public APIMLoginPage devLogInADVWOAPP() {
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
@@ -242,10 +248,11 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.DEV_PASSWORD_ADV_NO_APP);
 		waitForPageToLoad();
 		popupSignInButton.click();
+		return this;
 	}
 
 	/* OPA Login Method for OPA account without application- Hemant */
-	public void opaLogInADVWOAPP() {
+	public APIMLoginPage opaLogInADVWOAPP() {
 		signIn.click();
 		waitForPageToLoad();
 		signIn.click();
@@ -256,7 +263,7 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(Constants.OPA_PASSWORD_ADV_NO_APP);
 		waitForPageToLoad();
 		popupSignInButton.click();
-
+		return this;
 	}
 
 	/* Method to go to My Apps Page */
@@ -269,7 +276,7 @@ public class APIMLoginPage extends WebPage {
 	}
 
 	/* Method for Testing login functionality */
-	public void testLogIn(String aUsername, String aPassword) {
+	public APIMLoginPage testLogIn(String aUsername, String aPassword) {
 
 		signIn.click();
 		waitForPageToLoad();
@@ -281,6 +288,7 @@ public class APIMLoginPage extends WebPage {
 		passwordPopup.sendKeys(aPassword);
 		waitForPageToLoad();
 		popupSignInButton.click();
+		return this;
 	}
 
 	/* Method to open join now page */
@@ -289,11 +297,10 @@ public class APIMLoginPage extends WebPage {
 		waitForPageToLoad();
 		driver.findElement(By.linkText("close")).click();
 		waitForPageToLoad();
-		validateGetStartedFree();
 		return PageFactory.initElements(driver, JoinNowPage.class);
 	}
 
-	/* Method to logout */
+	/* Method to logout (Overriden Method) */
 	public void logout() {
 		waitForElement(userNameHeader);
 		Hover(userNameHeader);
@@ -322,7 +329,7 @@ public class APIMLoginPage extends WebPage {
 		Hover(userNameHeader);
 		manageMyAcct.click();
 		waitForPageToLoad();
-		implicitWait(10);
+		implicitWait(Constants.PAGE_WAIT_INTER_SYSTEM);
 
 		while (isAlertPresent(driver)) {
 
@@ -332,7 +339,6 @@ public class APIMLoginPage extends WebPage {
 			javascriptAlert.accept();
 			waitForPageToLoad();
 		}
-		validateManageMyAccountPage();
 		return PageFactory.initElements(driver, ManageMyAccount.class);
 	}
 
@@ -341,16 +347,15 @@ public class APIMLoginPage extends WebPage {
 		waitForElement(myApps);
 		myApps.click();
 		waitForPageToLoad();
-		implicitWait(5);
-		validateMyAppsPage();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
 		return PageFactory.initElements(driver, MyAppsPage.class);
 	}
 
 	/* Method to click on See more Success Stories page */
-	public void clkSeeMoreSuccessStories() {
+	public APIMLoginPage clkSeeMoreSuccessStories() {
 		successStories.click();
 		waitForPageToLoad();
-		validateSuccessStoriesPage();
+		return this;
 	}
 
 	/* Method to login */
@@ -365,22 +370,12 @@ public class APIMLoginPage extends WebPage {
 		return PageFactory.initElements(driver, MyAppsPage.class);
 	}
 
-	/* Method to click on Log A Ticket link */
-	public void clickLogTicket() {
-
-		implicitWait(2);
-		Hover(support);
-		implicitWait(2);
-		logTicket.click();
-
-	}
-
 	/************ Validation Methods ***********/
 
 	/* Method to validate Hackathon Events Page */
 	public Boolean validateHackathonEventsPage() {
 
-		String titleExpected = "Developer Events | AT&T Developer Program  | AT&T Developer";
+		String titleExpected = PageTitleConstant.HACKATHONSEVENTSPAGE;
 		Boolean result=validatePageTitle(titleExpected);
 		if (result) {
 
@@ -398,12 +393,14 @@ public class APIMLoginPage extends WebPage {
 	/* Method to validate LogIn Page */
 	public boolean validateLogin() {
 		boolean result=false;
-		String titleExpected = "Developer Events | AT&T Developer Program  | AT&T Developer";
+		String titleExpected = PageTitleConstant.LOGINPAGE;
 		int size = driver.findElements(By.className("field_error")).size();
 		if (size != 0) {
 			if (fieldError.isDisplayed()) {
 				validateWebElementDisplayed(fieldError);
-			} else {
+			}
+		}
+		 else {
 				if (validatePageTitle(titleExpected)) {
 
 					storeVerificationResults(true, "Page Title displayed api");
@@ -414,14 +411,14 @@ public class APIMLoginPage extends WebPage {
 
 				}
 			}
-		}
+		System.out.println(driver.getTitle());
 		return result;
 
 	}
 
 	/* Method to validate Get Started Free */
 	public boolean validateGetStartedFree() {
-		String titleExpected = "Get Free Basic Access and Join the AT&T Developer Program";
+		String titleExpected = PageTitleConstant.GETSTARTEDFREEPAGE;
 		
 		boolean result=validatePageTitle(titleExpected);
 		if (result) {
@@ -438,9 +435,10 @@ public class APIMLoginPage extends WebPage {
 	}
 
 	/* Method to validate Manage My Account Page */
-	public void validateManageMyAccountPage() {
-		String titleExpected = "Manage My Account";
-		if (validatePageTitle(titleExpected)) {
+	public boolean validateManageMyAccountPage() {
+		String titleExpected =PageTitleConstant.MANAGEMYACCOUNTPAGE;
+		boolean result=validatePageTitle(titleExpected);
+		if (result) {
 
 			storeVerificationResults(true, "Page Title displayed");
 
@@ -448,13 +446,14 @@ public class APIMLoginPage extends WebPage {
 
 			storeVerificationResults(false, "Page Title not displayed");
 		}
-
+		return result;
 	}
 
 	/* Method to validate My Apps Page */
-	public void validateMyAppsPage() {
-		String titleExpected = "API Matrix";
-		if (validatePageTitle(titleExpected)) {
+	public boolean validateMyAppsPage() {
+		String titleExpected = PageTitleConstant.MYAPPSPAGE;
+		boolean result=validatePageTitle(titleExpected);
+		if (result) {
 
 			storeVerificationResults(true, "Page Title displayed");
 
@@ -462,13 +461,14 @@ public class APIMLoginPage extends WebPage {
 
 			storeVerificationResults(false, "Page Title not displayed");
 		}
-
+		return result;
 	}
 
 	/* Method to validate Success Stories Page */
-	public void validateSuccessStoriesPage() {
-		String titleExpected = "Success Stories | AT&T Developer";
-		if (validatePageTitle(titleExpected)) {
+	public boolean validateSuccessStoriesPage() {
+		String titleExpected = PageTitleConstant.SUCCESSSTORIESPAGE;
+		boolean result=validatePageTitle(titleExpected);
+		if (result) {
 
 			storeVerificationResults(true, "Page Title displayed");
 
@@ -476,7 +476,7 @@ public class APIMLoginPage extends WebPage {
 
 			storeVerificationResults(false, "Page Title not displayed");
 		}
-
+		return result;
 	}
 	
 	/*Method to validate Logout*/

@@ -6,9 +6,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+
+
+
+
+
+
+
+
 //import ATT.Selenium_FVT.Components.OrganizationDetails;
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
 import ATT.Selenium_FVT.Utilities.Component.Constants;
+import ATT.Selenium_FVT.Utilities.Component.PageTitleConstant;
 
 public class ManageMyAccount extends WebPage {
 
@@ -132,54 +141,13 @@ public class ManageMyAccount extends WebPage {
 	}
 
 	/*
-	 * method to validate user navigates to Account Setting page on clicking
-	 * Account Settings link
-	 */
-	public boolean validateAccountSettingsPage() {
-		String titleExpected = "Manage My Account | AT&T Developer Program";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true,
-					"Manage My Account Page is displayed");
-
-		} else {
-
-			storeVerificationResults(false,
-					"Manage My Account Page is not displayed");
-
-		}
-		return result;
-	}
-
-	/*
 	 * Method to click on "Edit Merchant Details Link"
 	 */
-	public void clickEditMerchantDetailsLink() {
+	public ManageMyAccount clickEditMerchantDetailsLink() {
 		editMerchantDetails.click();
 		waitForPageToLoad();
 		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_SHORT);
-	}
-
-	/*
-	 * method to validate user navigates to Edit Merchant Details page on
-	 * clicking Edit Merchant Details link
-	 */
-	public boolean validateEditMerchantDetailsPage() {
-
-		String titleExpected = "Edit Merchant Details";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true,
-					"Edit Merchant Details Page is displayed");
-		} else {
-
-			storeVerificationResults(false,
-					"Edit Merchant Details Page is not displayed");
-
-		}
-		return result;
+		return this;
 	}
 
 	/*
@@ -190,25 +158,6 @@ public class ManageMyAccount extends WebPage {
 		waitForPageToLoad();
 		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
 		return PageFactory.initElements(driver, MyAppsPage.class);
-	}
-
-	/*
-	 * method to validate user navigates to My Apps page on clicking My Apps
-	 * link
-	 */
-	public boolean validateMyAppsPage() {
-
-		String titleExpected = "API Matrix";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true, "My Apps Page is displayed");
-
-		} else {
-
-			storeVerificationResults(false, "My Apps Page is  not displayed");
-		}
-		return result;
 	}
 
 	/*
@@ -232,54 +181,12 @@ public class ManageMyAccount extends WebPage {
 	}
 
 	/*
-	 * method to validate user navigates to Organization Details page on
-	 * clicking Organization Details link
-	 */
-	public boolean validateOrgDetailsPage() {
-
-		String titleExpected = "Organization Details";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true,
-					"Organization Details Page is displayed");
-
-		} else {
-
-			storeVerificationResults(false,
-					"Organization Details Page is not displayed");
-		}
-		return result;
-	}
-
-	/*
 	 * Method to click on Edit Organization Details link
 	 */
 	public void clickEditOrgDetails() {
 		editOrgDetails.click();
 		waitForPageToLoad();
 		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_SHORT);
-	}
-
-	/*
-	 * method to validate user navigates to Edit Organization Details page on
-	 * clicking Edit Organization Details link
-	 */
-	public boolean validateEditOrgDetailsPage() {
-
-		String titleExpected = "Edit Organization Details";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true,
-					"Edit Organization Detail page is displayed");
-
-		} else {
-
-			storeVerificationResults(false,
-					"Edit Organization Detail page is not displayed");
-		}
-		return result;
 	}
 
 	/*
@@ -300,27 +207,6 @@ public class ManageMyAccount extends WebPage {
 		waitForPageToLoad();
 		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_SHORT);
 		return PageFactory.initElements(driver, CommunityProfilePage.class);
-	}
-
-	/*
-	 * method to validate user navigates to Community Profile page on clicking
-	 * Community Profile link
-	 */
-	public boolean validateCommunityProfilePage() {
-
-		String titleExpected = "Community Profile Information at AT&T Developer Program";
-		boolean result = validatePageTitle(titleExpected);
-		if (result) {
-
-			storeVerificationResults(true,
-					"Community Profile Page is displayed");
-
-		} else {
-
-			storeVerificationResults(false,
-					"Community Profile Page is not displayed");
-		}
-		return result;
 	}
 
 	/*
@@ -345,12 +231,213 @@ public class ManageMyAccount extends WebPage {
 	}
 
 	/*
+	 * method to click Transaction Usage Link
+	 */
+	public ManageMyAccount clickTransactionUsageLink() {
+		transactionUsage.click();
+		waitForPageToLoad();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
+		return this;
+	}
+
+	/*
+	 * method to click Purchase Points Link
+	 */
+	public ManageMyAccount clickPurchasePointsLink() {
+		purchasePoints.click();
+		waitForPageToLoad();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
+		return this;
+	}
+
+	/*
+	 * method to click Subscription Details Link
+	 */
+	public ManageMyAccount clickSubscriptionDetailsLink() {
+		subscriptionDetails.click();
+		waitForPageToLoad();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
+		return this;
+	}
+
+	/*
+	 * method to click Setup Merchant Account Link
+	 */
+	public ManageMyAccount clickSetupMerchantAccountLink() {
+
+		setupMerAcct.click();
+		waitForPageToLoad();
+		return this;
+	}
+
+	/*
+	 * method to click Setup Manage My Credit Card Link
+	 */
+	public ManageMyAccount clickManageMyCreditCardLink() {
+		manageCreditCard.click();
+		waitForPageToLoad();
+		updateMySubscriptionNowButton.click();
+		waitForPageToLoad();
+		waitForElement(cancelButton);
+		//implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
+		return this;
+	}
+
+
+	/*
+	 * method on cancel button on Update My Subscription Page
+	 */
+	public ManageMyAccount clickCancelButtonUpdateMySubscriptionPage() {
+		cancelButton.click();
+		waitForPageToLoad();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
+		return this;
+	}
+
+	/*
+	 * method to validate "Upgrade to Premium Access" Button is displayed
+	 */
+	public boolean upgradeToPremiumAccessButtonValidation() {
+		boolean result=false;
+		if(validateWebElementDisplayed(upgradeToPremiumAccessButtonEditMErchantDetailsPage)){
+			result=true;
+		}
+		return result;
+	}
+
+	
+	
+	/*
+	 * method to validate user navigates to Account Setting page on clicking
+	 * Account Settings link
+	 */
+	public boolean validateAccountSettingsPage() {
+		String titleExpected = PageTitleConstant.ACCOUNTSETTINGPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true,
+					"Manage My Account Page is displayed");
+
+		} else {
+
+			storeVerificationResults(false,
+					"Manage My Account Page is not displayed");
+
+		}
+		return result;
+	}
+	
+	/*
+	 * method to validate user navigates to Edit Merchant Details page on
+	 * clicking Edit Merchant Details link
+	 */
+	public boolean validateEditMerchantDetailsPage() {
+
+		String titleExpected = PageTitleConstant.EDITMERCHANTDETAILSPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true,
+					"Edit Merchant Details Page is displayed");
+		} else {
+
+			storeVerificationResults(false,
+					"Edit Merchant Details Page is not displayed");
+
+		}
+		return result;
+	}
+
+	/*
+	 * method to validate user navigates to My Apps page on clicking My Apps
+	 * link
+	 */
+	public boolean validateMyAppsPage() {
+
+		String titleExpected = PageTitleConstant.MYAPPSPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true, "My Apps Page is displayed");
+
+		} else {
+
+			storeVerificationResults(false, "My Apps Page is  not displayed");
+		}
+		return result;
+	}
+	
+	/*
+	 * method to validate user navigates to Organization Details page on
+	 * clicking Organization Details link
+	 */
+	public boolean validateOrgDetailsPage() {
+
+		String titleExpected = PageTitleConstant.ORGANIZATIONDETAILSPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true,
+					"Organization Details Page is displayed");
+
+		} else {
+
+			storeVerificationResults(false,
+					"Organization Details Page is not displayed");
+		}
+		return result;
+	}
+
+	/*
+	 * method to validate user navigates to Edit Organization Details page on
+	 * clicking Edit Organization Details link
+	 */
+	public boolean validateEditOrgDetailsPage() {
+
+		String titleExpected = PageTitleConstant.EDITORGANIZATIONALDETAILSPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true,
+					"Edit Organization Detail page is displayed");
+
+		} else {
+
+			storeVerificationResults(false,
+					"Edit Organization Detail page is not displayed");
+		}
+		return result;
+	}
+	
+	/*
+	 * method to validate user navigates to Community Profile page on clicking
+	 * Community Profile link
+	 */
+	public boolean validateCommunityProfilePage() {
+
+		String titleExpected = PageTitleConstant.COMMUNITYPROFILEPAGE;
+		boolean result = validatePageTitle(titleExpected);
+		if (result) {
+
+			storeVerificationResults(true,
+					"Community Profile Page is displayed");
+
+		} else {
+
+			storeVerificationResults(false,
+					"Community Profile Page is not displayed");
+		}
+		return result;
+	}
+	
+	/*
 	 * method to validate user navigates to Cancel My Subscription page on
 	 * clicking Cancel My Subscription link
 	 */
 	public boolean validateCancelMySubscriptionPage() {
 
-		String titleExpected = "API Platform & Developer Program FAQ | AT&T Developer";
+		String titleExpected = PageTitleConstant.CANCELMYSUBCRIPTIONPAGE;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -364,23 +451,14 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method to click Transaction Usage Link
-	 */
-	public void clickTransactionUsageLink() {
-		transactionUsage.click();
-		waitForPageToLoad();
-		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
-	}
-
+	
 	/*
 	 * method to validate user navigates to Transaction Usage page on clicking
 	 * Transaction Usage Link
 	 */
 	public boolean validateTransactionUsagePage() {
 
-		String titleExpected = "Transaction Usage";
+		String titleExpected = PageTitleConstant.TRANSACTIONUSAGEPAGE;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -394,23 +472,14 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method to click Purchase Points Link
-	 */
-	public void clickPurchasePointsLink() {
-		purchasePoints.click();
-		waitForPageToLoad();
-		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
-	}
-
+	
 	/*
 	 * method to validate user navigates to Purchase Point page on clicking
 	 * Purchase Point Link
 	 */
 	public boolean validatePurchasePointsPage() {
 
-		String titleExpected = "Purchase Points";
+		String titleExpected = PageTitleConstant.PURCHASEPOINTPAGE;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -423,23 +492,14 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method to click Subscription Details Link
-	 */
-	public void clickSubscriptionDetailsLink() {
-		subscriptionDetails.click();
-		waitForPageToLoad();
-		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
-	}
-
+	
 	/*
 	 * method to validate user navigates to Subscription Details Page on
 	 * clicking Subscription Details link
 	 */
 	public boolean validateSubscriptionDetailsPage() {
 
-		String titleExpected = "Subscription Details";
+		String titleExpected = PageTitleConstant.SUBSCRIPTIONDETAILSPAGE;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -453,33 +513,14 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method to click Setup Merchant Account Link
-	 */
-	public void clickSetupMerchantAccountLink() {
-
-		setupMerAcct.click();
-		waitForPageToLoad();
-	}
-
-	/*
-	 * method to click Setup Manage My Credit Card Link
-	 */
-	public void clickManageMyCreditCardLink() {
-		manageCreditCard.click();
-		waitForPageToLoad();
-		updateMySubscriptionNowButton.click();
-		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
-	}
-
+	
 	/*
 	 * method to validate user navigates to ManageMyCreditCard Page on clicking
 	 * ManageMyCreditCard link
 	 */
 	public boolean validateManageMyCreditCardPage() {
 
-		String titleExpected = "New Subscription Confirmation";
+		String titleExpected = PageTitleConstant.MANAGEMYCREDITCARDPAGE;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -493,23 +534,14 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method on cancel button on Update My Subscription Page
-	 */
-	public void clickCancelButtonUpdateMySubscriptionPage() {
-		cancelButton.click();
-		waitForPageToLoad();
-		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_LONG);
-	}
-
+	
 	/*
 	 * method to validate user navigates to Manage My Account page on clicking
 	 * cancel button on Update My Subscription Page
 	 */
 	public boolean validateCancelButtonUpdateMySubscriptionPage() {
 
-		String titleExpected = "Manage My Account";
+		String titleExpected = PageTitleConstant.MANAGEMYACCOUNT;
 		boolean result = validatePageTitle(titleExpected);
 		if (result) {
 
@@ -523,13 +555,7 @@ public class ManageMyAccount extends WebPage {
 		}
 		return result;
 	}
-
-	/*
-	 * method to validate "Upgrade to Premium Access" Button is displayed
-	 */
-	public void upgradeToPremiumAccessButtonValidation() {
-
-		validateWebElementDisplayed(upgradeToPremiumAccessButtonEditMErchantDetailsPage);
-	}
-
+	
 }
+
+

@@ -1,138 +1,110 @@
 package ATT.Selenium_FVT.Pages;
 
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
+import ATT.Selenium_FVT.Utilities.Component.Constants;
 
 public class AddUsersPage extends WebPage {
+
+	// Page Object "Email ID" field
+	@FindBy(how = How.ID, using = "emailAddresses_0")
+	private WebElement EmailId;
+
+	// Page Object "Submit" button
+	@FindBy(how = How.ID, using = "submitButton")
+	private WebElement Submit;
+
+	// Page Object "Cancel" button
+	@FindBy(how = How.ID, using = "cancelButton")
+	private WebElement cancelButton;
+
+	// Page Object "Yes" button
+	@FindBy(xpath = "(//button[@type='button'])[4]")
+	private WebElement Yes_Button;
 
 	public AddUsersPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
-		
+
 	@Override
 	public void openURL() {
-		//driver.get(APIM_URL);
-		driver.navigate().to("https://devpgm-uat-app.eng.mobilephone.net/developer/forward.jsp?passedItemId=100006");
-		waitForPageToLoad();
+		// driver.get(Constants.APIM_HOME_URL);
+		// driver.navigate().to("");
+		// waitForPageToLoad();
 		PageFactory.initElements(driver, this);
-		
-	}
-	
-	//Page Object "Organization Details" header 
-	@FindBy(how=How.ID, using="emailAddresses_0")
-	private WebElement EmailId;
-	
-	//Page Object "Organization Details" header 
-		@FindBy(how=How.ID, using="submitButton")
-		private WebElement Submit;
-		
 
-	//Page Object "Organization Details" header 
-		@FindBy(how=How.ID, using="cancelButton")
-		private WebElement cancelButton;
-		
-	
-		int i = 0;
-	//method to send an email invite
-	 public void sendInvite(){
-		
+	}
+
+	/* method to enter email ID */
+	public AddUsersPage enterEmailId() {
+		String emailId = "testuser.com";
 		EmailId.click();
-		String text;
-		
-		while(i<1000){
-		
-		text = "user" +i+ "@att.com";
-		EmailId.sendKeys(text);			
+		EmailId.sendKeys(emailId);
+		return this;
+	}
+
+	/* method to send an email invite */
+	public AddUsersPage sendInvite() {
 		Submit.click();
-		break;
-		
-		}
-		i++;
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_SHORT);
+		return this;
 	}
-	 
-	//method to send an email invite
-		 public void cancelInvite(){
-			
-			EmailId.click();
-			String text;
-			
-			while(i<1000){
-			
-			text = "user" +i+ "@att.com";
-			EmailId.sendKeys(text);			
-			cancelButton.click();
-			break;
-			
-			}
-			i++;
-		}
-		 
-		 
-	//method to validate cancel button
-	public void validateCancelButton(){
-		
-		String titleCaptured = driver.getTitle();
-		System.out.println(titleCaptured);
-		String titleActual = "Manage Users";
-		if(titleCaptured.equalsIgnoreCase(titleActual)){
-		 	   
-	 	    storeVerificationResults(true, "Page Title displayed");
-	 	   
-	 	    }else{
-	 	          
-	 	          storeVerificationResults(false, "Page Title not displayed");
-	 	   }
+
+	/* method to cancel sending a email invite */
+	public AddUsersPage cancelInvite() {
+		cancelButton.click();
+		implicitWait(Constants.PAGE_WAIT_INTRA_SYSTEM_SHORT);
+		return this;
 	}
-	//****************************************************Rohit******************************************************
-	 
-	 
-	 
-	//Page Object "Organization Details" header 
-			@FindBy(how=How.XPATH, using="//*[@id='standardBody']/div[11]/div[11]/div/button[1]")
-			private WebElement Yes_Button;
-	 
-			
-			
-			
-			
-	 
-	 //$$$$$$$$$$$$$$$$$$-----------------------------------------------------------------------------$$$$$$$$$$$$$$$
-	 
-	//method to click Yes button
-	public void clickYes(){
-		
+
+	/* method to click Yes button */
+	public AddUsersPage clickYes() {
+
 		Yes_Button.click();
 		waitForPageToLoad();
+		return this;
 	}
-	
-	public APIMLoginPage apimLoginPage(){
-		waitForPageToLoad();
-		return PageFactory.initElements(driver, APIMLoginPage.class);
+
+	/* method to validate cancel button */
+	public boolean validateCancelButton() {
+		String titleExpected = "Manage Users";
+		boolean result = validatePageTitle(titleExpected);
+
+		if (result) {
+
+			storeVerificationResults(true,
+					"Manage User page is displayed on clicking Cancel button");
+
+		} else {
+
+			storeVerificationResults(false,
+					"Manage User page is not displayed on clicking Cancel button");
+		}
+		return result;
 	}
-	
-	 
-	//method to return Elements of Manage My Account Page
-	public ManageMyAccount managemyacct(){
-		waitForPageToLoad();
-		return PageFactory.initElements(driver, ManageMyAccount.class);
-	}
-	
-	
-	//method to validate error message on invalid email id
-	public void validateEmailIdErrorMesaage(){
-		
-		String error_message = driver.findElement(By.id("label0")).toString();
-		
-		error_message.compareTo("Must contain a valid e-mail.");	
+
+	/* method to validate error message on invalid email id */
+	public boolean validateEmailIdErrorMesaage() {
+
+		String error_message = driver.findElement(By.id("label0")).getText();
+		boolean result = error_message
+				.equalsIgnoreCase("Must contain a valid e-mail.");
+		if (result) {
+
+			storeVerificationResults(true, "Error Message is displayed");
+
+		} else {
+
+			storeVerificationResults(false, "Error Message is not displayed");
+		}
+		return result;
+
 	}
 }

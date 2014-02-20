@@ -7,7 +7,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import ATT.Selenium_FVT.Utilities.Browser.WebPage;
-import ATT.Selenium_FVT.Utilities.Component.Constants;
 
 public class AccountSettingsPage extends WebPage {
 
@@ -122,13 +121,14 @@ public class AccountSettingsPage extends WebPage {
 		return this;
 	}
 
+	/*********************** Validation methods****************************/
 	/*
 	 * method to validate password field
 	 */
 	public boolean validateVerifyPasswordField() {
 
 			
-		String messageActual = "Verify New Password\nVerify Password can not exceed 14 characters in length.";
+		String messageActual = "Verify Password can not exceed 14 characters in length.";
 
 		boolean result = messageActual.equals(fieldErrorForVerifyPassword.getText());
 		if (result) {
@@ -146,55 +146,82 @@ public class AccountSettingsPage extends WebPage {
 	/*
 	 * method to validate "Upgrade to Premium Access" Button is displayed
 	 */
-	public void upgradeToPremiumAccessButtonValidation() {
-
-		validateWebElementDisplayed(upgradeToPremiumAccessButtonAccoutsPage);
+	public boolean upgradeToPremiumAccessButtonValidation() {
+		boolean result=false;
+		if(validateWebElementDisplayed(upgradeToPremiumAccessButtonAccoutsPage)){
+			result=true;
+		}
+		return result;
 	}
 
 	
 	/*
 	 * method to validate Job Function Dropdown
 	 */
-	public void validateJobFunction() {
-
-		validateWebElementDisplayed(JobFunction);
-		validateWebElementEnabled(JobFunction);
+	public boolean validateJobFunction() {
+		boolean result=false;
+		if(validateWebElementDisplayed(JobFunction)){
+		if(validateWebElementEnabled(JobFunction)){
+			result=true;
+		}
+		}
+		return result;
 	}
 
 	/*
 	 * method to validate Industry Dropdown
 	 */
-	public void validateIndustry() {
-
-		validateWebElementDisplayed(Industry);
-		validateWebElementEnabled(Industry);
-
+	public boolean validateIndustry() {
+		boolean result=false;
+		if(validateWebElementDisplayed(Industry)){
+			if(validateWebElementEnabled(Industry)){
+				result=true;
+			}
+		}
+		return result;
 	}
 
 	/*
 	 * method to validate company name
 	 */
-	public void validateCompanyName() {
-
-		validateWebElementDisplayed(Company);
-
-		validateWebElementPrepopulated(Company);
-
-		validateWebElementDisabled(Company);
-		
+	public boolean validateCompanyName() {
+		boolean result = false;
+		if (validateWebElementDisplayed(Company)) {
+			if (validateWebElementPrepopulated(Company)) {
+				result = validateWebElementDisabled(Company);
+			}
+		}
+		return result;
 	}
 
 	/*
-	 * method to validate email field is pre populated
+	 * method to validate email field is pre populated and enabled
 	 */
-	public void emailvalidation() {
-
-		validateWebElementPrepopulated(Email);
-		validateWebElementEnabled(Email);
-
-		validateWebElementPrepopulated(VerifyEmail);
-		validateWebElementEnabled(VerifyEmail);
+	public boolean emailFieldvalidation() {
+		
+		boolean result = false;
+		if (validateWebElementDisplayed(Email)) {
+			if (validateWebElementPrepopulated(Email)) {
+				result = validateWebElementEnabled(Email);
+			}
+		}
+		return result;		
+	}
+	
+	
+	/*
+	 * method to validate Verify Email field is pre populated and enabled
+	 */
+	public boolean verifyEmailFieldvalidation() {
+		
+		boolean result = false;
+		if (validateWebElementDisplayed(VerifyEmail)) {
+			if (validateWebElementPrepopulated(VerifyEmail)) {
+				result = validateWebElementEnabled(VerifyEmail);
+			}
+		}
+		return result;	
 		
 	}
-
+	
 }
